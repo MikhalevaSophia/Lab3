@@ -1,0 +1,74 @@
+using System;
+using System.Collections.Generic;
+using System.Drawing;
+using System.Linq;
+using System.Reflection.Metadata.Ecma335;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace task1
+{
+    struct Vector
+    {
+        private double x, y, z;
+        public Vector(double x, double y, double z)
+        {
+            this.x = x;
+            this.y = y;
+            this.z = z;
+        }
+
+        public static double Length (Vector v)
+        {
+            return (Math.Sqrt(v.x * v.x + v.y * v.y + v.z * v.z));
+        }
+        public static Vector operator +(Vector a, Vector b)
+       => new Vector(a.x + b.x, a.y + b.y, a.z + b.z);
+        public static Vector operator *(Vector a, int b)
+       => new Vector(a.x *b, a.y *b, a.z*b);
+        public static double operator *(Vector a, Vector b)
+       => a.x * b.x + a.y * b.y + a.z * b.z;
+        public static bool operator == (Vector a, Vector b) => Vector.Length(a) == Vector.Length(b);
+        public static bool operator !=(Vector a, Vector b) => Vector.Length(a) != Vector.Length(b);
+        public static bool operator >=(Vector a, Vector b) => Vector.Length(a) >= Vector.Length(b);
+        public static bool operator <=(Vector a, Vector b) => Vector.Length(a) <= Vector.Length(b);
+        public static bool operator >(Vector a, Vector b) => Vector.Length(a) > Vector.Length(b);
+        public static bool operator <(Vector a, Vector b) => Vector.Length(a) < Vector.Length(b);
+        public static void Print (Vector v)
+        {
+            Console.WriteLine(v.x + " " + v.y + " " + v.z);
+        }
+    }
+    class Program
+    {
+        public static void Main(string[] args)
+        {
+            Vector a = new Vector(1, 2, 3);
+            Vector b = new Vector(3, 4, 5);
+
+            Console.WriteLine("Векторы: ");
+            Console.WriteLine("Первый вектор : ");
+            Vector.Print(a);
+            Console.WriteLine("Второй вектор : ");
+            Vector.Print(b);
+            Console.WriteLine("Сумма векторов: ");
+            Vector.Print(a + b);
+            Console.WriteLine("Произведение векторов :");
+            Console.WriteLine(a * b);
+            Console.WriteLine("Умножение первого вектора на 5 : ");
+            Vector.Print(a * 5);
+            Console.WriteLine("Сравнение векторов: первый вектор == второй вектор ");
+            Console.WriteLine(a == b);
+            Console.WriteLine("Сравнение векторов: первый вектор != второй вектор ");
+            Console.WriteLine(a != b);
+            Console.WriteLine("Сравнение векторов: первый вектор >= второй вектор ");
+            Console.WriteLine(a >= b);
+            Console.WriteLine("Сравнение векторов: первый вектор <= второй вектор ");
+            Console.WriteLine(a <= b);
+            Console.WriteLine("Сравнение векторов: первый вектор > второй вектор ");
+            Console.WriteLine(a > b);
+            Console.WriteLine("Сравнение векторов: первый вектор < второй вектор ");
+            Console.WriteLine(a < b);
+        }
+    }
+}
