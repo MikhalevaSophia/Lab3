@@ -1,0 +1,68 @@
+using System;
+using System.Collections.Generic;
+using System.Drawing;
+using System.Linq;
+using System.Reflection;
+using System.Reflection.Metadata.Ecma335;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace task3
+{
+    class Car
+    {
+        public string? Name;
+        public string? Engine;
+        public int MaxSpeed;
+        public override string ToString()
+        {
+            return Name;
+        }
+        public Car(string Name, string Engine, int MaxSpeed)
+        {
+            this.Name = Name;
+            this.Engine = Engine;
+            this.MaxSpeed = MaxSpeed;
+        }
+        public bool Equals(Car other)
+        {
+            throw new NotImplementedException();
+        }
+    }
+    interface IEquatable<Car>
+        {
+            public bool Equals(Car other);
+        }
+    class CarCatalog
+    {
+        private List <Car> cars;
+        public CarCatalog(params Car[] car)
+        {
+            cars = new List<Car>();
+            for (int i = 0; i < car.Length; i++)
+            {
+               
+                this.cars.Add(new Car(car[i].Name, car[i].Engine, car[i].MaxSpeed));
+            }
+        }
+
+        public string this[int index]
+        {
+            get
+            {
+                if (index >= 0) return $"{cars[index].Name} - {cars[index].Engine}";
+                else return $"{cars[Math.Abs((cars.Count + index)) % cars.Count].Name} - {cars[Math.Abs((cars.Count - index)) % cars.Count].Engine}";
+            }
+        }
+    }
+    class Program
+    {
+        public static void Main(string[] args)
+        {
+            CarCatalog car = new CarCatalog(new Car("Первая машина", "поршневой двигатель", 300), new Car("Вторая машина", "роторный двигатель", 200), new Car("Третья машина", "газотурбинный двигатель", 100), new Car("Четвертая машина", "волшебный двигатель", 1000));
+
+            Console.WriteLine(car[0]);
+            Console.WriteLine(car[-10]);
+        }
+    }
+}
